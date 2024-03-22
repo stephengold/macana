@@ -1,0 +1,164 @@
+// Gradle script to build the Macana project
+
+plugins {
+    id 'application' // to build a Java application
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+    // current versions of libraries:
+    lbjVersion = '20.2.0'
+    lwjglVersion = '3.3.3'
+    skijaVersion = '0.116.2'
+
+    // which BTF (buildType + flavor) of the native physics library to use:
+    btf = 'ReleaseSp'
+
+    fs = System.getProperty('file.separator')
+    downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
+
+    // URL from which native physics libraries should be copied:
+    libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
+}
+
+tasks.withType(JavaCompile).configureEach { // Java compile-time options:
+    options.compilerArgs << '-Xdiags:verbose'
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true // to provide detailed deprecation warnings
+    options.encoding = 'UTF-8'
+}
+
+// Register tasks to run specific applications:
+
+tasks.register('HelloObsidian', JavaExec) {
+    description 'Runs the HelloObsidian app.'
+    mainClass = 'com.github.stephengold.macana.HelloObsidian'
+}
+
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
+Boolean includeLinux = os.isLinux()
+Boolean includeMacOsX = os.isMacOsX()
+Boolean includeWindows = os.isWindows()
+
+tasks.withType(JavaExec).configureEach { // Java runtime options:
+    if (os.isMacOsX()) {
+        jvmArgs '-XstartOnFirstThread' // required for GLFW on macOS
+    }
+    classpath sourceSets.main.runtimeClasspath
+    enableAssertions true
+
+    if (includeLinux) {
+        dependsOn 'downloadLinux64'
+    }
+    if (includeMacOsX) {
+        dependsOn 'downloadMacOSX64'
+        dependsOn 'downloadMacOSX_ARM64'
+    }
+    if (includeWindows) {
+        dependsOn 'downloadWindows64'
+    }
+}
+
+application {
+    mainClass = 'com.github.stephengold.macana.HelloObsidian'
+}
+
+configurations.configureEach {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds' // to disable caching of snapshots
+}
+
+dependencies {
+    implementation 'com.github.stephengold:sport:0.9.2'
+    implementation 'com.github.stephengold:Libbulletjme:' + lbjVersion
+
+    implementation 'com.myworldvw:obsidian:1.0.16'
+    implementation 'io.github.humbleui:skija-shared:' + skijaVersion
+
+    implementation 'org.joml:joml:1.10.5'
+    implementation 'org.lwjgl:lwjgl'
+    implementation 'org.lwjgl:lwjgl-assimp'
+    implementation 'org.lwjgl:lwjgl-glfw'
+    implementation 'org.lwjgl:lwjgl-opengl'
+    implementation 'org.lwjgl:lwjgl-yoga'
+
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    if (includeLinux) {
+        runtimeOnly 'io.github.humbleui:skija-linux-x64:' + skijaVersion
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-linux"
+    }
+
+    if (includeMacOsX) {
+        runtimeOnly 'io.github.humbleui:skija-macos-x64:' + skijaVersion
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-macos"
+
+        runtimeOnly 'io.github.humbleui:skija-macos-arm64:' + skijaVersion
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-macos-arm64"
+    }
+
+    if (includeWindows) {
+        runtimeOnly 'io.github.humbleui:skija-windows:' + skijaVersion
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-windows"
+    }
+}
+
+// Register tasks to download/clean the native physics library for each platform:
+
+registerPlatformTasks('Linux64',      '_libbulletjme.so')
+registerPlatformTasks('MacOSX64',     '_libbulletjme.dylib')
+registerPlatformTasks('MacOSX_ARM64', '_libbulletjme.dylib')
+registerPlatformTasks('Windows64',    '_bulletjme.dll')
+
+// helper method to register 'download' and 'clean' tasks:
+
+void registerPlatformTasks(String platform, String suffix) {
+    String filename = platform + btf + suffix
+
+    String cleanTaskName = 'clean' + platform
+    clean.dependsOn(cleanTaskName)
+    tasks.register(cleanTaskName, Delete) {
+        delete downloadsDir + filename
+    }
+
+    tasks.register('download' + platform, MyDownload) {
+        sourceUrl = libbulletjmeUrl + filename
+        target = file(downloadsDir + filename)
+    }
+}
+
+// helper class to wrap Ant download task:
+
+class MyDownload extends DefaultTask {
+    @Input
+    String sourceUrl
+
+    @OutputFile
+    File target
+
+    @TaskAction
+    void download() {
+        ant.get(src: sourceUrl, dest: target)
+        println sourceUrl
+    }
+}
