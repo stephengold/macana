@@ -65,6 +65,10 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     // fields
 
     /**
+     * system time as of the previous GUI update (or null if no previous render)
+     */
+    private static Long lastUpdate;
+    /**
      * separate OpenGL context for Obsidian
      */
     private static ObsidianContext ctx;
@@ -180,8 +184,13 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     protected void render() {
         super.render();
 
-        ui.updateAndRender(1.0 / 64.0); // Assume a constant refresh rate
-        // TODO detect resize and respond to it
+        long nanoTime = System.nanoTime();
+        float seconds
+                = (lastUpdate == null) ? 0f : 1e-9f * (nanoTime - lastUpdate);
+        lastUpdate = nanoTime;
+        ui.updateAndRender(seconds);
+
+        // TODO detect resize and react to it
         ctx.render();
     }
 
