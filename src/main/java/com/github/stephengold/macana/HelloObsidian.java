@@ -188,7 +188,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         float seconds
                 = (lastUpdate == null) ? 0f : 1e-9f * (nanoTime - lastUpdate);
         lastUpdate = nanoTime;
-        ui.updateAndRender(seconds);
+        ui.update(seconds);
 
         // TODO detect resize and react to it
         ctx.render();
