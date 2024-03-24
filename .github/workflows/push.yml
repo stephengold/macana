@@ -17,12 +17,12 @@ jobs:
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
             git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
       - uses: actions/checkout@v4
       - uses: gradle/wrapper-validation-action@v2
-      - run: ./gradlew build --console=plain --stacktrace
+      - run: ./gradlew build --console=plain --no-daemon --stacktrace
 
   Java17-MacOS:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
@@ -36,11 +36,11 @@ jobs:
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
             git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
       - uses: actions/checkout@v4
-      - run: ./gradlew build --console=plain --stacktrace
+      - run: ./gradlew build --console=plain --no-daemon --stacktrace
 
   Java17-Windows:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
@@ -54,10 +54,10 @@ jobs:
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
             git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
         shell: bash
       - uses: actions/checkout@v4
-      - run: ./gradlew build --console=plain --stacktrace
+      - run: ./gradlew build --console=plain --no-daemon --stacktrace
         shell: bash
