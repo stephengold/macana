@@ -13,12 +13,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      - uses: actions/checkout@v4
-        with:
-          repository: 'MyWorldLLC/Obsidian'
-          ref: '037eb4d'
       - run: |
+            git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
+            git checkout -b latest 037eb4d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
@@ -34,12 +32,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      - uses: actions/checkout@v4
-        with:
-          repository: 'MyWorldLLC/Obsidian'
-          ref: '037eb4d'
       - run: |
+            git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
+            git checkout -b latest 037eb4d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
@@ -54,12 +50,10 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 21
-      - uses: actions/checkout@v4
-        with:
-          repository: 'MyWorldLLC/Obsidian'
-          ref: '037eb4d'
       - run: |
+            git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
+            git checkout -b latest 037eb4d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
