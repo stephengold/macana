@@ -221,18 +221,6 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         blendTexture(textureName, new OverOp()); // TODO doesn't work
         //blendTexture(redBarTextureName, new OverOp()); // but this works
     }
-
-    /**
-     * Advance the physics simulation by the specified amount. Invoked during
-     * each update.
-     *
-     * @param wallClockSeconds the elapsed wall-clock time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float wallClockSeconds) {
-        physicsSpace.update(wallClockSeconds);
-    }
     // *************************************************************************
     // private methods
 
