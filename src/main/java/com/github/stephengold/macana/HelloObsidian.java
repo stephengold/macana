@@ -30,6 +30,7 @@ package com.github.stephengold.macana;
 
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.OverOp;
+import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
@@ -74,6 +75,10 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * GUI width
      */
     private static int guiWidth;
+    /**
+     * OpenGL name of the transparent texture
+     */
+    private static int redBarTextureName;
     /**
      * system time as of the previous GUI update (or null if no previous render)
      */
@@ -163,6 +168,11 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         addGuiInput();
         addGuiLayout();
 
+        // Load a transparent image as a texture:
+        String resourceName = "/Textures/RedBar.png";
+        TextureKey textureKey = new TextureKey("classpath://" + resourceName);
+        redBarTextureName = textureKey.textureName();
+
         super.initialize(); // initialize the physics
     }
 
@@ -210,6 +220,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         ctx.render();
         int textureName = ctx.getTextureHandle();
         blendTexture(textureName, new OverOp()); // TODO doesn't work
+        //blendTexture(redBarTextureName, new OverOp()); // but this works
     }
 
     /**
