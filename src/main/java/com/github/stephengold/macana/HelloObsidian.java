@@ -65,6 +65,14 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     // fields
 
     /**
+     * GUI height
+     */
+    private static int guiHeight;
+    /**
+     * GUI width
+     */
+    private static int guiWidth;
+    /**
      * system time as of the previous GUI update (or null if no previous render)
      */
     private static Long lastUpdate;
@@ -133,7 +141,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     protected void initialize() {
-        Dimension2D size = updateGuiSurface(); // This creates the GUI.
+        updateGuiSurface(); // This creates the GUI.
         ui.clearColor().set(Colors.TRANSPARENT);
 
         UISkin skin = ObsidianSkin.create();
@@ -142,6 +150,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
 
         // Create an initialize the Obsidian rendering context:
         ctx = new ObsidianContext(ui);
+
+        Dimension2D size = new Dimension2D(guiWidth, guiHeight);
         InputManager inputManager = getInputManager();
         long windowHandle = inputManager.getGlfwWindowHandle();
         ctx.init(size, 4, windowHandle);
@@ -286,7 +296,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Create or resize the GUI surface, as appropriate.
      */
-    private static Dimension2D updateGuiSurface() {
+    private static void updateGuiSurface() {
         InputManager inputManager = getInputManager();
         long windowHandle = inputManager.getGlfwWindowHandle();
 
@@ -306,12 +316,13 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
             ui = ObsidianUI.createHeadless();
             assert ui != null;
 
-        } else {
+        } else if (renderWidth != guiWidth || renderHeight != guiHeight) {
             System.out.println(
                     "resize(" + renderWidth + ", " + renderHeight + ")");
             ui.display().ifSet(d -> d.resize(renderWidth, renderHeight));
         }
 
-        return new Dimension2D(renderWidth, renderHeight);
+        guiWidth = renderWidth;
+        guiHeight = renderHeight;
     }
 }
