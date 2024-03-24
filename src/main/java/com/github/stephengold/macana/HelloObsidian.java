@@ -29,6 +29,7 @@
 package com.github.stephengold.macana;
 
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.OverOp;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
@@ -205,6 +206,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
 
         // TODO detect resize and react to it
         ctx.render();
+        int textureName = ctx.getTextureHandle();
+        blendTexture(textureName, new OverOp()); // TODO doesn't work
     }
 
     /**
