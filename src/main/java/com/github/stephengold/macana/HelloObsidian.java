@@ -198,6 +198,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     protected void render() {
         super.render();
 
+        updateGuiSurface();
+
         long nanoTime = System.nanoTime();
         float seconds
                 = (lastUpdate == null) ? 0f : 1e-9f * (nanoTime - lastUpdate);
