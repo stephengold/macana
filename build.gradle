@@ -114,7 +114,7 @@ dependencies {
     }
 
     if (includeWindows) {
-        runtimeOnly 'io.github.humbleui:skija-windows-x86:' + skijaVersion
+        runtimeOnly 'io.github.humbleui:skija-windows-x64:' + skijaVersion
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
         runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
