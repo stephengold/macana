@@ -151,7 +151,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         setBackgroundColor(Constants.SKY_BLUE);
 
         updateGuiSurface(); // This creates the GUI.
-        ui.clearColor().set(Colors.TRANSPARENT);
+        ui.clearColor().set(Colors.TRANSPARENT); // default=BLACK
 
         UISkin skin = ObsidianSkin.create();
         skin.addComponentSkin(ExampleComponentSkin.create());
@@ -216,7 +216,6 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         lastUpdate = nanoTime;
         ui.update(seconds);
 
-        // TODO detect resize and react to it
         ctx.render();
         int textureName = ctx.getTextureHandle();
         blendTexture(textureName, new OverOp()); // TODO doesn't work
