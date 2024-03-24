@@ -28,6 +28,7 @@
  */
 package com.github.stephengold.macana;
 
+import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
