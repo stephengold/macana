@@ -48,6 +48,7 @@ import myworld.obsidian.ObsidianUI;
 import myworld.obsidian.components.Button;
 import myworld.obsidian.components.text.TextDisplay;
 import myworld.obsidian.display.Colors;
+import myworld.obsidian.display.skin.ComponentSkin;
 import myworld.obsidian.display.skin.UISkin;
 import myworld.obsidian.display.skin.obsidian.ObsidianSkin;
 import myworld.obsidian.events.scene.ButtonEvent;
@@ -154,7 +155,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         ui.clearColor().set(Colors.TRANSPARENT); // default=BLACK
 
         UISkin skin = ObsidianSkin.create();
-        skin.addComponentSkin(ExampleComponentSkin.create());
+        ComponentSkin componentSkin = ExampleComponentSkin.create();
+        skin.addComponentSkin(componentSkin);
         ui.useSkin(skin);
 
         // Create an initialize the Obsidian rendering context:
