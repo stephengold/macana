@@ -87,11 +87,11 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     /**
      * separate OpenGL context for Obsidian
      */
-    private static ObsidianContext ctx;
+    private static ObsidianContext context;
     /**
      * Obsidian graphical user-interface layer
      */
-    private static ObsidianUI ui;
+    private static ObsidianUI gui;
     // *************************************************************************
     // constructors
 
@@ -123,11 +123,11 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void cleanUp() {
-        if (ctx != null) {
-            ctx.close();
+        if (context != null) {
+            context.close();
         }
-        if (ui != null) {
-            ui.cleanup();
+        if (gui != null) {
+            gui.cleanup();
         }
 
         super.cleanUp(); // clean up the physics
@@ -152,20 +152,20 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         setBackgroundColor(Constants.SKY_BLUE);
 
         updateGuiSurface(); // This creates the GUI.
-        ui.clearColor().set(Colors.TRANSPARENT); // default=BLACK
+        gui.clearColor().set(Colors.TRANSPARENT); // default=BLACK
 
         UISkin skin = ObsidianSkin.create();
         ComponentSkin componentSkin = ExampleComponentSkin.create();
         skin.addComponentSkin(componentSkin);
-        ui.useSkin(skin);
+        gui.useSkin(skin);
 
         // Create an initialize the Obsidian rendering context:
-        ctx = new ObsidianContext(ui);
+        context = new ObsidianContext(gui);
 
         Dimension2D size = new Dimension2D(guiWidth, guiHeight);
         InputManager inputManager = getInputManager();
         long windowHandle = inputManager.getGlfwWindowHandle();
-        ctx.init(size, 4, windowHandle);
+        context.init(size, 4, windowHandle);
 
         addGuiInput();
         addGuiLayout();
@@ -216,10 +216,10 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         float seconds
                 = (lastUpdate == null) ? 0f : 1e-9f * (nanoTime - lastUpdate);
         lastUpdate = nanoTime;
-        ui.update(seconds);
+        gui.update(seconds);
 
-        ctx.render();
-        int textureName = ctx.getTextureHandle();
+        context.render();
+        int textureName = context.getTextureHandle();
         blendTexture(textureName, new OverOp()); // TODO doesn't work
         //blendTexture(redBarTextureName, new OverOp()); // but this works
     }
@@ -235,13 +235,13 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
             @Override
             public void onCharacter(int codePoint) {
                 char[] characters = Character.toChars(codePoint);
-                ui.getInput().fireCharacterEvent(characters);
+                gui.getInput().fireCharacterEvent(characters);
             }
 
             @Override
             public void onKeyboard(int glfwKey, boolean isPressed) {
                 Key obsidianId = Convert.convertGlfwKey(glfwKey);
-                ui.getInput().fireKeyEvent(obsidianId, isPressed);
+                gui.getInput().fireKeyEvent(obsidianId, isPressed);
             }
 
             @Override
@@ -250,14 +250,14 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
                         = Convert.convertGlfwMouseButton(glfwButton);
                 int x = (int) inputManager.glfwCursorX();
                 int y = (int) inputManager.glfwCursorY();
-                ui.getInput().fireMouseButtonEvent(obsidianId, isPressed, x, y);
+                gui.getInput().fireMouseButtonEvent(obsidianId, isPressed, x, y);
             }
 
             @Override
             public void onMouseMotion(double rightFraction, double upFraction) {
                 int x = (int) inputManager.glfwCursorX();
                 int y = (int) inputManager.glfwCursorY();
-                ui.getInput().fireMouseMoveEvent(x, y);
+                gui.getInput().fireMouseMoveEvent(x, y);
             }
 
             @Override
@@ -266,12 +266,12 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
                 int y = (int) inputManager.glfwCursorY();
 
                 if (xScroll != 0.) {
-                    ui.getInput().fireMouseWheelEvent(
+                    gui.getInput().fireMouseWheelEvent(
                             MouseWheelAxis.HORIZONTAL, x, y, (float) xScroll);
                 }
 
                 if (yScroll != 0.) {
-                    ui.getInput().fireMouseWheelEvent(
+                    gui.getInput().fireMouseWheelEvent(
                             MouseWheelAxis.VERTICAL, x, y, (float) yScroll);
                 }
             }
@@ -283,7 +283,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * Add a layout and a single text button to the GUI.
      */
     private static void addGuiLayout() {
-        Text text = Text.styled("Restart", ui.getStyle("ExampleText"));
+        Text text = Text.styled("Restart", gui.getStyle("ExampleText"));
         Button button = Button.textButton(text);
         button.addButtonListener(ButtonEvent::isClicked,
                 event -> System.out.println("Clicked restart!"));
@@ -297,8 +297,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         SimpleLayout layout = new SimpleLayout();
         layout.addToColumn(button);
 
-        ui.getRoot().addChild(layout);
-        ui.requestFocus(button);
+        gui.getRoot().addChild(layout);
+        gui.requestFocus(button);
     }
 
     /**
@@ -319,15 +319,15 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         int renderWidth = widthArray[0];
         int renderHeight = (int) (heightArray[0] / ysArray[0] * xsArray[0]);
 
-        if (ui == null) {
+        if (gui == null) {
             System.out.println("ObsidianUI.createHeadless()");
-            ui = ObsidianUI.createHeadless();
-            assert ui != null;
+            gui = ObsidianUI.createHeadless();
+            assert gui != null;
 
         } else if (renderWidth != guiWidth || renderHeight != guiHeight) {
             System.out.println("DisplayEngine.resize("
                     + renderWidth + ", " + renderHeight + ")");
-            ui.display().ifSet(d -> d.resize(renderWidth, renderHeight));
+            gui.display().ifSet(d -> d.resize(renderWidth, renderHeight));
         }
 
         guiWidth = renderWidth;
