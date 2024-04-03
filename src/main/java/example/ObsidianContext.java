@@ -108,6 +108,11 @@ public class ObsidianContext {
             sampleTex = glGenTextures();
             glBindTexture(GL_TEXTURE_2D, sampleTex);
             glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB_ALPHA, getWidth(), getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+            /*
+             * The initial setting of GL_TEXTURE_MIN_FILTER is
+             * GL_NEAREST_MIPMAP_LINEAR, for which SPORT would require mipmaps.
+             */
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glBindTexture(GL_TEXTURE_2D, 0);
 
             sampleFBO = glGenFramebuffers();
