@@ -38,6 +38,20 @@ tasks.register('HelloObsidian', JavaExec) {
     description 'Runs the HelloObsidian app.'
     mainClass = 'com.github.stephengold.macana.HelloObsidian'
 }
+tasks.register('rdHelloObsidian', Exec) {
+    commandLine = [
+            '/usr/share/renderdoc_1.31/bin/renderdoccmd',
+            'capture',
+            '--wait-for-exit',
+            '--working-dir', '.',
+            "${System.getProperty('java.home')}/bin/java",
+            '-classpath', sourceSets.main.runtimeClasspath.asPath,
+            'com.github.stephengold.macana.HelloObsidian'
+            ]
+
+    dependsOn = ['classes', 'downloadNatives']
+    description 'Runs HelloObsidian with a renderDoc overlay.'
+}
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
