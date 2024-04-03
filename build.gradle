@@ -50,8 +50,11 @@ tasks.withType(JavaExec).configureEach { // Java runtime options:
         jvmArgs '-XstartOnFirstThread' // required for GLFW on macOS
     }
     classpath sourceSets.main.runtimeClasspath
+    dependsOn 'downloadNatives'
     enableAssertions true
+}
 
+tasks.register('downloadNatives') {
     if (includeLinux) {
         dependsOn 'downloadLinux64'
     }
