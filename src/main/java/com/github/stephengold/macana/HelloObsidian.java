@@ -156,6 +156,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     @Override
     protected void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
+        cam.setLocation(new Vector3f(0f, 0f, 4f));
 
         updateGuiSurface(); // This creates the GUI.
         gui.clearColor().set(Colors.TRANSPARENT); // default=BLACK
