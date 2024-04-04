@@ -29,6 +29,7 @@
 package com.github.stephengold.macana;
 
 import myworld.obsidian.components.layout.Pane;
+import myworld.obsidian.geometry.Distance;
 import myworld.obsidian.layout.ComponentLayout;
 import myworld.obsidian.layout.ItemJustification;
 import myworld.obsidian.layout.Layout;
@@ -57,7 +58,8 @@ class SimpleLayout extends Pane {
     // constructors
 
     /**
-     * Instantiate a layout.
+     * Instantiate a layout that starts 10px inward from the upper-left corner
+     * and proceeds downward.
      */
     SimpleLayout() {
         layoutOnly.set(true);
@@ -70,6 +72,8 @@ class SimpleLayout extends Pane {
 
         this.column = new Column();
         row.addChild(column);
+
+        column.withPadding(Distance.pixels(10f));
         ComponentLayout columnLayout = column.layout();
         columnLayout.clampedSize(Layout.AUTO, Layout.FULL_SIZE);
         columnLayout.justifyContent().set(ItemJustification.FLEX_START);
