@@ -50,6 +50,7 @@ import example.ObsidianContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myworld.obsidian.ObsidianUI;
+import myworld.obsidian.display.ColorRGBA;
 import myworld.obsidian.display.Colors;
 import myworld.obsidian.display.skin.ComponentSkin;
 import myworld.obsidian.display.skin.StyleClass;
@@ -57,9 +58,12 @@ import myworld.obsidian.display.skin.UISkin;
 import myworld.obsidian.display.skin.obsidian.ObsidianSkin;
 import myworld.obsidian.events.scene.ButtonEvent;
 import myworld.obsidian.geometry.Dimension2D;
+import myworld.obsidian.geometry.Distance;
 import myworld.obsidian.input.Key;
 import myworld.obsidian.input.MouseButton;
 import myworld.obsidian.input.MouseWheelAxis;
+import myworld.obsidian.layout.Offsets;
+import myworld.obsidian.text.TextStyle;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -308,7 +312,10 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
                 ButtonEvent::isClicked, event -> restartSimulation());
         restartButton
                 .setFontFamily("Clear Sans")
-                .setFontSize(24f);
+                .setFontSize(24f)
+                .setFontStyle(TextStyle.BOLD)
+                .setLayoutMargin(new Offsets(Distance.pixels(5f)))
+                .setTextColor(ColorRGBA.of(0, 170, 0));
 
         gui.requestFocus(restartButton);
     }
