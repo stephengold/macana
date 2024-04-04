@@ -203,7 +203,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
         physicsSpace.addCollisionObject(floor);
 
-        // Add a sphere-shaped, dynamic, rigid body at the origin.
+        // Add a sphere-shaped, dynamic, rigid body at y=1.
         float radius = 0.3f;
         CollisionShape ballShape = new SphereCollisionShape(radius);
         mass = 1f;
@@ -234,7 +234,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         context.render();
         int textureName = context.getTextureHandle();
         blendTexture(textureName, new OverOp());
-        //blendTexture(redBarTextureName, new OverOp()); // but this works
+        //blendTexture(redBarTextureName, new OverOp());
     }
     // *************************************************************************
     // private methods
@@ -335,7 +335,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         InputManager inputManager = getInputManager();
         long windowHandle = inputManager.getGlfwWindowHandle();
 
-        int[] widthArray = new int[1];
+        int[] widthArray = new int[1]; // TODO garbage
         int[] heightArray = new int[1];
         GLFW.glfwGetWindowSize(windowHandle, widthArray, heightArray);
 
