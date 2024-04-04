@@ -50,10 +50,9 @@ import example.ObsidianContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import myworld.obsidian.ObsidianUI;
-import myworld.obsidian.components.Button;
-import myworld.obsidian.components.text.TextDisplay;
 import myworld.obsidian.display.Colors;
 import myworld.obsidian.display.skin.ComponentSkin;
+import myworld.obsidian.display.skin.StyleClass;
 import myworld.obsidian.display.skin.UISkin;
 import myworld.obsidian.display.skin.obsidian.ObsidianSkin;
 import myworld.obsidian.events.scene.ButtonEvent;
@@ -61,7 +60,6 @@ import myworld.obsidian.geometry.Dimension2D;
 import myworld.obsidian.input.Key;
 import myworld.obsidian.input.MouseButton;
 import myworld.obsidian.input.MouseWheelAxis;
-import myworld.obsidian.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -299,21 +297,20 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * Add a layout and a single text button to the GUI.
      */
     private void addGuiLayout() {
-        Text text = Text.styled("Restart", gui.getStyle("ExampleText"));
-        Button button = Button.textButton(text);
-        button.addButtonListener(
-                ButtonEvent::isClicked, event -> restartSimulation());
-
-        TextDisplay buttonText
-                = (TextDisplay) button.children().get(0); // TODO ugly
-        buttonText.fontFamily().set("Clear Sans");
-        buttonText.fontSize().set(24f);
-
         SimpleLayout layout = new SimpleLayout();
-        layout.addToColumn(button);
-
         gui.getRoot().addChild(layout);
-        gui.requestFocus(button);
+
+        StyleClass style = gui.getStyle("ExampleText");
+        TextButton restartButton = new TextButton("Restart", style);
+        layout.addToColumn(restartButton);
+
+        restartButton.addButtonListener(
+                ButtonEvent::isClicked, event -> restartSimulation());
+        restartButton
+                .setFontFamily("Clear Sans")
+                .setFontSize(24f);
+
+        gui.requestFocus(restartButton);
     }
 
     /**
