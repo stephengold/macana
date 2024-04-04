@@ -29,6 +29,7 @@
 package com.github.stephengold.macana;
 
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.blend.BlendOp;
 import com.github.stephengold.sport.blend.OverOp;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
@@ -69,12 +70,29 @@ import org.lwjgl.glfw.GLFW;
  */
 public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
+    // constants
+
+    /**
+     * blending op for the GUI overlay
+     */
+    final private static BlendOp guiBlendOp = new OverOp();
+    // *************************************************************************
     // fields
 
+    /**
+     * temporary storage for GLFW.glfwGetWindowContentScale() results
+     */
+    final private static float[] xsArray = new float[1];
+    final private static float[] ysArray = new float[1];
     /**
      * GUI height
      */
     private static int guiHeight;
+    /**
+     * temporary storage for GLFW.glfwGetWindowSize() results
+     */
+    final private static int[] heightArray = new int[1];
+    final private static int[] widthArray = new int[1];
     /**
      * GUI width
      */
@@ -217,7 +235,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
 
         context.render();
         int textureName = context.getTextureHandle();
-        blendTexture(textureName, new OverOp());
+        blendTexture(textureName, guiBlendOp);
     }
     // *************************************************************************
     // private methods
@@ -317,14 +335,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     private static void updateGuiSurface() {
         InputManager inputManager = getInputManager();
         long windowHandle = inputManager.getGlfwWindowHandle();
-
-        int[] widthArray = new int[1]; // TODO garbage
-        int[] heightArray = new int[1];
-        GLFW.glfwGetWindowSize(windowHandle, widthArray, heightArray);
-
-        float[] xsArray = new float[1];
-        float[] ysArray = new float[1];
         GLFW.glfwGetWindowContentScale(windowHandle, xsArray, ysArray);
+        GLFW.glfwGetWindowSize(windowHandle, widthArray, heightArray);
 
         int renderWidth = widthArray[0];
         int renderHeight = (int) (heightArray[0] / ysArray[0] * xsArray[0]);
