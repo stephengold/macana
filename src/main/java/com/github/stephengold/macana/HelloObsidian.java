@@ -113,7 +113,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        setDebuggingEnabled(true);
+        //setDebuggingEnabled(true);
 
         HelloObsidian application = new HelloObsidian();
         application.start();
