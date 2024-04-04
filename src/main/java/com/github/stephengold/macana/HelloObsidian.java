@@ -354,7 +354,8 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         } else if (renderWidth != guiWidth || renderHeight != guiHeight) {
             System.out.println("DisplayEngine.resize("
                     + renderWidth + ", " + renderHeight + ")");
-            gui.display().ifSet(d -> d.resize(renderWidth, renderHeight));
+            Dimension2D size = new Dimension2D(renderWidth, renderHeight);
+            context.resize(size);
         }
 
         guiWidth = renderWidth;

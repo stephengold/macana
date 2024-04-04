@@ -53,6 +53,10 @@ public class ObsidianContext {
     }
 
     public void resize(Dimension2D size){
+        int newHeight = (int) size.height();
+        int newWidth = (int) size.width();
+        ui.display().ifSet(d -> d.resize(newWidth, newHeight));
+
         this.size = size;
         createRenderSurface();
     }
