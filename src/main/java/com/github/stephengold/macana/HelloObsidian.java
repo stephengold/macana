@@ -248,6 +248,11 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
             public void onKeyboard(int glfwKey, boolean isPressed) {
                 Key obsidianId = Convert.convertGlfwKey(glfwKey);
                 gui.getInput().fireKeyEvent(obsidianId, isPressed);
+                /*
+                 * BaseApplication has already added processors
+                 * for KEY_ESCAPE and KEY_C:
+                 */
+                super.onKeyboard(glfwKey, isPressed);
             }
 
             @Override
