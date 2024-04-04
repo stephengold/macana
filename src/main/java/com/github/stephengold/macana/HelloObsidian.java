@@ -207,6 +207,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         mass = 1f;
         PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ball);
+        ball.setPhysicsLocation(new Vector3f(0f, 1f, 0f));
 
         // Visualize the collision objects.
         visualizeShape(floor);
