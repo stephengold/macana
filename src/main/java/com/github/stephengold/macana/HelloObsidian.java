@@ -47,6 +47,8 @@ import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import example.ExampleComponentSkin;
 import example.ObsidianContext;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import myworld.obsidian.ObsidianUI;
 import myworld.obsidian.components.Button;
 import myworld.obsidian.components.text.TextDisplay;
@@ -113,6 +115,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
         //setDebuggingEnabled(true);
 
         HelloObsidian application = new HelloObsidian();
