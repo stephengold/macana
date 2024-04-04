@@ -29,10 +29,6 @@
 package com.github.stephengold.macana;
 
 import com.github.stephengold.sport.Constants;
-import com.github.stephengold.sport.Filter;
-import com.github.stephengold.sport.FlipAxes;
-import com.github.stephengold.sport.TextureKey;
-import com.github.stephengold.sport.WrapFunction;
 import com.github.stephengold.sport.blend.OverOp;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
@@ -83,10 +79,6 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * GUI width
      */
     private static int guiWidth;
-    /**
-     * OpenGL name of the transparent texture
-     */
-    private static int redBarTextureName;
     /**
      * system time as of the previous GUI update (or null if no previous render)
      */
@@ -179,14 +171,6 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         addGuiInput();
         addGuiLayout();
 
-        // Load a transparent image as a texture, flipping the Y axis:
-        String resourceName = "/Textures/RedBar.png";
-        TextureKey textureKey = new TextureKey("classpath://" + resourceName,
-                Filter.Linear, Filter.NearestMipmapLinear,
-                WrapFunction.Repeat, WrapFunction.Repeat,
-                true, FlipAxes.flipY, 1f);
-        redBarTextureName = textureKey.textureName();
-
         super.initialize(); // initialize the physics
     }
 
@@ -234,7 +218,6 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         context.render();
         int textureName = context.getTextureHandle();
         blendTexture(textureName, new OverOp());
-        //blendTexture(redBarTextureName, new OverOp());
     }
     // *************************************************************************
     // private methods
@@ -347,13 +330,10 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         int renderHeight = (int) (heightArray[0] / ysArray[0] * xsArray[0]);
 
         if (gui == null) {
-            System.out.println("ObsidianUI.createHeadless()");
             gui = ObsidianUI.createHeadless();
             assert gui != null;
 
         } else if (renderWidth != guiWidth || renderHeight != guiHeight) {
-            System.out.println("DisplayEngine.resize("
-                    + renderWidth + ", " + renderHeight + ")");
             Dimension2D size = new Dimension2D(renderWidth, renderHeight);
             context.resize(size);
         }
