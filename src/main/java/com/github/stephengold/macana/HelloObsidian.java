@@ -296,12 +296,11 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Add a layout and a single text button to the GUI.
      */
-    private static void addGuiLayout() {
+    private void addGuiLayout() {
         Text text = Text.styled("Restart", gui.getStyle("ExampleText"));
         Button button = Button.textButton(text);
-        button.addButtonListener(ButtonEvent::isClicked,
-                event -> System.out.println("Clicked restart!"));
-        // TODO Clicking should restart the physics simulation.
+        button.addButtonListener(
+                ButtonEvent::isClicked, event -> restartSimulation());
 
         TextDisplay buttonText
                 = (TextDisplay) button.children().get(0); // TODO ugly
@@ -313,6 +312,14 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
 
         gui.getRoot().addChild(layout);
         gui.requestFocus(button);
+    }
+
+    /**
+     * Restart the simulation.
+     */
+    private void restartSimulation() {
+        physicsSpace.destroy();
+        populateSpace();
     }
 
     /**
