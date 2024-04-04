@@ -29,8 +29,11 @@
 package com.github.stephengold.macana;
 
 import com.github.stephengold.sport.Constants;
-import com.github.stephengold.sport.OverOp;
+import com.github.stephengold.sport.Filter;
+import com.github.stephengold.sport.FlipAxes;
 import com.github.stephengold.sport.TextureKey;
+import com.github.stephengold.sport.WrapFunction;
+import com.github.stephengold.sport.blend.OverOp;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
@@ -170,9 +173,12 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
         addGuiInput();
         addGuiLayout();
 
-        // Load a transparent image as a texture:
+        // Load a transparent image as a texture, flipping the Y axis:
         String resourceName = "/Textures/RedBar.png";
-        TextureKey textureKey = new TextureKey("classpath://" + resourceName);
+        TextureKey textureKey = new TextureKey("classpath://" + resourceName,
+                Filter.Linear, Filter.NearestMipmapLinear,
+                WrapFunction.Repeat, WrapFunction.Repeat,
+                true, FlipAxes.flipY, 1f);
         redBarTextureName = textureKey.textureName();
 
         super.initialize(); // initialize the physics
@@ -220,7 +226,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
 
         context.render();
         int textureName = context.getTextureHandle();
-        blendTexture(textureName, new OverOp()); // TODO doesn't work
+        blendTexture(textureName, new OverOp());
         //blendTexture(redBarTextureName, new OverOp()); // but this works
     }
     // *************************************************************************
