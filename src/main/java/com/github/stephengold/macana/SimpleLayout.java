@@ -30,6 +30,7 @@ package com.github.stephengold.macana;
 
 import myworld.obsidian.components.layout.Pane;
 import myworld.obsidian.layout.ComponentLayout;
+import myworld.obsidian.layout.ItemJustification;
 import myworld.obsidian.layout.Layout;
 import myworld.obsidian.scene.Component;
 import myworld.obsidian.scene.layout.Column;
@@ -64,10 +65,14 @@ class SimpleLayout extends Pane {
         this.row = new Row();
         addChild(row);
         ComponentLayout rowLayout = row.layout();
-        rowLayout.clampedSize(Layout.FULL_SIZE, Layout.FULL_SIZE);
+        rowLayout.clampedSize(Layout.FULL_SIZE, Layout.AUTO);
+        rowLayout.justifyContent().set(ItemJustification.FLEX_END);
 
         this.column = new Column();
         row.addChild(column);
+        ComponentLayout columnLayout = column.layout();
+        columnLayout.clampedSize(Layout.AUTO, Layout.FULL_SIZE);
+        columnLayout.justifyContent().set(ItemJustification.FLEX_START);
     }
     // *************************************************************************
     // new methods exposed
