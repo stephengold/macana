@@ -20,6 +20,13 @@ jobs:
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
+      - run: |
+            git clone https://github.com/stephengold/sport.git
+            cd sport
+            git checkout -b snapshot 30040e
+            ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
+            cd ..
+            rm -rf sport
       - uses: actions/checkout@v4
       - uses: gradle/wrapper-validation-action@v2
       - run: ./gradlew build --console=plain --no-daemon --stacktrace
@@ -39,6 +46,13 @@ jobs:
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
+      - run: |
+            git clone https://github.com/stephengold/sport.git
+            cd sport
+            git checkout -b snapshot 30040e
+            ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
+            cd ..
+            rm -rf sport
       - uses: actions/checkout@v4
       - run: ./gradlew build --console=plain --no-daemon --stacktrace
 
@@ -57,6 +71,14 @@ jobs:
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
             cd ..
             rm -rf Obsidian
+        shell: bash
+      - run: |
+            git clone https://github.com/stephengold/sport.git
+            cd sport
+            git checkout -b snapshot 30040e
+            ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
+            cd ..
+            rm -rf sport
         shell: bash
       - uses: actions/checkout@v4
       - run: ./gradlew build --console=plain --no-daemon --stacktrace
