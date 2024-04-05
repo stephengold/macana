@@ -55,9 +55,6 @@ tasks.register('rdHelloObsidian', Exec) {
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
-Boolean includeLinux = os.isLinux()
-Boolean includeMacOsX = os.isMacOsX()
-Boolean includeWindows = os.isWindows()
 
 tasks.withType(JavaExec).configureEach { // Java runtime options:
     if (os.isMacOsX()) {
@@ -68,6 +65,9 @@ tasks.withType(JavaExec).configureEach { // Java runtime options:
     enableAssertions true
 }
 
+Boolean includeLinux = os.isLinux()
+Boolean includeMacOsX = os.isMacOsX()
+Boolean includeWindows = os.isWindows()
 tasks.register('downloadNatives') {
     if (includeLinux) {
         dependsOn 'downloadLinux64'
