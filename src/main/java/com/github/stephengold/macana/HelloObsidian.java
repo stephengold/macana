@@ -157,7 +157,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace createSpace() {
+    protected PhysicsSpace createSpace() {
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
         return new PhysicsSpace(bPhase);
     }
@@ -196,7 +196,7 @@ public class HelloObsidian extends BasePhysicsApp<PhysicsSpace> {
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
-    public void populateSpace() {
+    protected void populateSpace() {
         // Add a static horizontal plane at y=-1.
         float planeY = -1f;
         Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
