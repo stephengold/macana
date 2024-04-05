@@ -16,8 +16,8 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
+            git checkout -b snapshot 037eb4d
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
       - run: |
@@ -42,8 +42,8 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
+            git checkout -b snapshot 037eb4d
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
       - run: |
@@ -67,8 +67,8 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b latest 037eb4d
-            ./gradlew :Obsidian:publishToMavenLocal --console=plain --no-daemon --stacktrace
+            git checkout -b snapshot 037eb4d
+            ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
         shell: bash
