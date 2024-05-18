@@ -10,11 +10,6 @@ java {
 }
 
 ext {
-    // current versions of libraries:
-    lbjVersion = '21.2.1'
-    lwjglVersion = '3.3.3'
-    skijaVersion = '0.116.2'
-
     // which BTF (buildType + flavor) of the native physics library to copy:
     btf = 'ReleaseSp'
     //btf = 'DebugSp'
