@@ -1,7 +1,7 @@
 // Gradle script to build the Macana project
 
 plugins {
-    id 'application' // to build a Java application
+    id 'application' // to build JVM applications
 }
 
 java {
@@ -15,14 +15,16 @@ ext {
     lwjglVersion = '3.3.3'
     skijaVersion = '0.116.2'
 
-    // which BTF (buildType + flavor) of the native physics library to use:
+    // which BTF (buildType + flavor) of the native physics library to copy:
     btf = 'ReleaseSp'
+    //btf = 'DebugSp'
 
     fs = System.getProperty('file.separator')
     downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
 
     // URL from which native physics libraries should be copied:
     libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
+    //libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 }
 
 tasks.withType(JavaCompile).configureEach { // Java compile-time options:
