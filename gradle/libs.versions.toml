@@ -1,0 +1,29 @@
+## TOML version catalog for the Macana project
+
+[versions]
+
+libbulletjme = "21.2.1"
+lwjgl = "3.3.3"
+skija = "0.116.2"
+
+[libraries]
+
+joml = { module = "org.joml:joml", version = "1.10.5" }
+libbulletjme = { module = "com.github.stephengold:Libbulletjme", version.ref = "libbulletjme" }
+lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
+lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
+lwjgl-bom = { module = "org.lwjgl:lwjgl-bom", version.ref = "lwjgl" }
+lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
+lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
+lwjgl-yoga = { module = "org.lwjgl:lwjgl-yoga", version.ref = "lwjgl" }
+obsidian = { module = "com.myworldvw:obsidian", version = "1.0.16" }
+skija-linux-x64 = { module = "io.github.humbleui:skija-linux-x64", version.ref = "skija" }
+skija-macos-arm64 = { module = "io.github.humbleui:skija-macos-arm64", version.ref = "skija" }
+skija-macos-x64 = { module = "io.github.humbleui:skija-macos-x64", version.ref = "skija" }
+skija-shared = { module = "io.github.humbleui:skija-shared", version.ref = "skija" }
+skija-windows-x64 = { module = "io.github.humbleui:skija-windows-x64", version.ref = "skija" }
+sport = { module = "com.github.stephengold:sport", version = "0.9.5-SNAPSHOT" }
+
+[bundles]
+
+[plugins]

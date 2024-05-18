@@ -21,6 +21,7 @@ ext {
 
     fs = System.getProperty('file.separator')
     downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
+    lbjVersion = libs.versions.libbulletjme.get()
 
     // URL from which native physics libraries should be copied:
     libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
@@ -92,53 +93,53 @@ configurations.configureEach {
 }
 
 dependencies {
-    implementation 'com.github.stephengold:sport:0.9.5-SNAPSHOT'
-    implementation 'com.github.stephengold:Libbulletjme:' + lbjVersion
+    implementation(libs.sport)
+    implementation(libs.libbulletjme)
 
-    implementation 'com.myworldvw:obsidian:1.0.16'
-    implementation 'io.github.humbleui:skija-shared:' + skijaVersion
+    implementation(libs.obsidian)
+    implementation(libs.skija.shared)
 
-    implementation 'org.joml:joml:1.10.5'
-    implementation 'org.lwjgl:lwjgl'
-    implementation 'org.lwjgl:lwjgl-assimp'
-    implementation 'org.lwjgl:lwjgl-glfw'
-    implementation 'org.lwjgl:lwjgl-opengl'
-    implementation 'org.lwjgl:lwjgl-yoga'
+    implementation(libs.joml)
+    implementation(libs.lwjgl)
+    implementation(libs.lwjgl.assimp)
+    implementation(libs.lwjgl.glfw)
+    implementation(libs.lwjgl.opengl)
+    implementation(libs.lwjgl.yoga)
 
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation platform(libs.lwjgl.bom)
 
     if (includeLinux) {
-        runtimeOnly 'io.github.humbleui:skija-linux-x64:' + skijaVersion
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-linux"
+        runtimeOnly(libs.skija.linux.x64)
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.yoga){classifier("natives-linux")})
     }
 
     if (includeMacOsX) {
-        runtimeOnly 'io.github.humbleui:skija-macos-x64:' + skijaVersion
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-macos"
+        runtimeOnly(libs.skija.macos.x64)
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.yoga){classifier("natives-macos")})
 
-        runtimeOnly 'io.github.humbleui:skija-macos-arm64:' + skijaVersion
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly(libs.skija.macos.arm64)
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.yoga){classifier("natives-macos-arm64")})
     }
 
     if (includeWindows) {
-        runtimeOnly 'io.github.humbleui:skija-windows-x64:' + skijaVersion
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-yoga:${lwjglVersion}:natives-windows"
+        runtimeOnly(libs.skija.windows.x64)
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.yoga){classifier("natives-windows")})
     }
 }
 
