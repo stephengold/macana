@@ -1,6 +1,7 @@
 # Macana
 
-Macana is a testbed for combining Obsidian with SPORT (WIP)
+Macana is a testbed for combining [Obsidian](https://github.com/MyWorldLLC/Obsidian)
+with [SPORT](https://github.com/stephengold/sport) (WIP)
 
 ## How to build Macana from source
 
