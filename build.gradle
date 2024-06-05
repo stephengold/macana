@@ -2,7 +2,7 @@
 
 plugins {
     id 'application' // to build JVM applications
-    alias(libs.plugins.download)
+    alias(libs.plugins.download) // to retrieve files from URLs
 }
 
 java {
