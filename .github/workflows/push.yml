@@ -16,14 +16,14 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b snapshot 037eb4d
+            git checkout -b snapshot 417123d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
       - run: |
             git clone https://github.com/stephengold/sport.git
             cd sport
-            git checkout -b snapshot 30040e
+            git checkout -b snapshot db56949
             ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf sport
@@ -42,14 +42,14 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b snapshot 037eb4d
+            git checkout -b snapshot 417123d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
       - run: |
             git clone https://github.com/stephengold/sport.git
             cd sport
-            git checkout -b snapshot 30040e
+            git checkout -b snapshot db56949
             ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf sport
@@ -67,7 +67,7 @@ jobs:
       - run: |
             git clone https://github.com/MyWorldLLC/Obsidian.git
             cd Obsidian
-            git checkout -b snapshot 037eb4d
+            git checkout -b snapshot 417123d
             ./gradlew :Obsidian:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf Obsidian
@@ -75,7 +75,7 @@ jobs:
       - run: |
             git clone https://github.com/stephengold/sport.git
             cd sport
-            git checkout -b snapshot 30040e
+            git checkout -b snapshot db56949
             ./gradlew :lib:publishToMavenLocal --console=plain --stacktrace
             cd ..
             rm -rf sport
