@@ -16,7 +16,7 @@ lwjgl-bom = { module = "org.lwjgl:lwjgl-bom", version.ref = "lwjgl" }
 lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
 lwjgl-yoga = { module = "org.lwjgl:lwjgl-yoga", version.ref = "lwjgl" }
-obsidian = "com.myworldvw:obsidian:1.0.16"
+obsidian = "com.myworldvw:obsidian:1.0.18-1-g417123d"
 skija-linux-x64 = { module = "io.github.humbleui:skija-linux-x64", version.ref = "skija" }
 skija-macos-arm64 = { module = "io.github.humbleui:skija-macos-arm64", version.ref = "skija" }
 skija-macos-x64 = { module = "io.github.humbleui:skija-macos-x64", version.ref = "skija" }
