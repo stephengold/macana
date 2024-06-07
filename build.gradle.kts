@@ -13,20 +13,18 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-extra.apply {
-    // which BTF (buildType + flavor) of the native physics library to copy:
-    set("btf", "ReleaseSp")
-    //set("btf", "DebugSp")
+// which BTF (buildType + flavor) of the native physics library to copy:
+val btf = "ReleaseSp"
+//val btf = "DebugSp"
 
-    val fs = System.getProperty("file.separator")
-    set("downloadsDir", System.getProperty("user.home") + fs + "Downloads" + fs)
+val fs = System.getProperty("file.separator")
+val downloadsDir = System.getProperty("user.home") + fs + "Downloads" + fs
 
-    set("lbjVersion", libs.versions.libbulletjme.get())
+val lbjVersion = libs.versions.libbulletjme.get()
 
-    // URL from which native physics libraries should be copied:
-    set("libbulletjmeUrl", "https://github.com/stephengold/Libbulletjme/releases/download/" + get("lbjVersion") + "/")
-    //set("libbulletjmeUrl", "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/")
-}
+// URL from which native physics libraries should be copied:
+val libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
+//val libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 
 tasks.withType<JavaCompile>().all { // Java compile-time options:
     options.compilerArgs.add("-Xdiags:verbose")
@@ -153,8 +151,8 @@ registerPlatformTasks("Windows64",    "_bulletjme.dll")
 
 fun registerPlatformTasks(platform : String, suffix : String) {
     val cleanTaskName = "clean" + platform
-    val filename = platform + extra["btf"] + suffix
-    val filepath = "" + extra["downloadsDir"] + filename
+    val filename = platform + btf + suffix
+    val filepath = "" + downloadsDir + filename
 
     tasks.named("clean") {
         dependsOn(cleanTaskName)
@@ -165,7 +163,7 @@ fun registerPlatformTasks(platform : String, suffix : String) {
     }
 
     tasks.register<Download>("download" + platform) {
-        src("" + project.extra["libbulletjmeUrl"] + filename)
+        src(libbulletjmeUrl + filename)
         dest(filepath)
         overwrite(false)
     }
