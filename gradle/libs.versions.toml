@@ -8,7 +8,7 @@ skija = "0.116.2"
 
 [libraries]
 
-joml = "org.joml:joml:1.10.6"
+joml = "org.joml:joml:1.10.8"
 libbulletjme = { module = "com.github.stephengold:Libbulletjme", version.ref = "libbulletjme" }
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
