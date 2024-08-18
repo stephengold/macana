@@ -3,7 +3,7 @@
 [versions]
 
 libbulletjme = "21.2.1"
-lwjgl = "3.3.3"
+lwjgl = "3.3.4"
 skija = "0.116.2"
 
 [libraries]
